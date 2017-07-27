@@ -9,3 +9,14 @@ export const addTask = (taskName: string, tasks: Task[]) => {
         }
     ];
 };
+
+export const toggleTask = (task: Task) => {
+    return {
+        ...task,
+        done: !task.done
+    };
+};
+
+export const updateTasks = (tasks: Task[], task: Task) => {
+ return tasks;
+};

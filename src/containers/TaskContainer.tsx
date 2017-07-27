@@ -41,6 +41,10 @@ class TaskContainer extends React.Component<{}, TaskState> {
         });
     }
 
+    handleToggle = () => { 
+        // empty
+    }
+
     handleSubmit = (e: any): void => {
         e.preventDefault();
         this.setState({
@@ -59,7 +63,7 @@ class TaskContainer extends React.Component<{}, TaskState> {
                 currentTask={this.state.currentTask} 
                 handleSubmit={this.handleSubmit}
             />
-            <TaskList tasks={this.state.tasks} />
+            <TaskList onToggle={this.handleToggle} tasks={this.state.tasks} />
         </div>
         );
     }
