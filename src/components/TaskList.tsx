@@ -4,7 +4,7 @@ import TaskItem from './TaskItem';
 
 interface TaskListProps {
     tasks: Task[];
-    onToggle: (id: number) => any;
+    onToggle: (id: any) => any;
 
 }
 

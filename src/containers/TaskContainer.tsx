@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Task } from './Task';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import { addTask } from '../helpers';
+import { addTask, loadTask, findById, toggleTask, updateTasks } from '../helpers';
 
 interface TaskState {
     tasks: Task[];
@@ -11,28 +11,18 @@ interface TaskState {
 
 class TaskContainer extends React.Component<{}, TaskState> {
 
-    constructor() {
-        super();
-        this.state = {
-            tasks: [
-                    {
-                        id:  1,
-                        name: 'Name #1',
-                        done: false
-                    },
-                    {
-                        id:  2,
-                        name: 'Name #2',
-                        done: false
-                    },
-                    {
-                        id:  3,
-                        name: 'Name #3',
-                        done: false
-                    }
-            ],
-            currentTask: ''
-        };
+    state = {
+        tasks: [ ],
+        currentTask: ''
+    };
+
+    componentDidMount() {
+        loadTask()
+            .then((tasks: Task[]) => {
+                this.setState({
+                    tasks: tasks
+                });
+            });
     }
 
     handleInput = (e: any): void => {
@@ -41,8 +31,13 @@ class TaskContainer extends React.Component<{}, TaskState> {
         });
     }
 
-    handleToggle = () => { 
-        // empty
+    handleToggle = (id: number) => { 
+        const task: any = findById(id, this.state.tasks);
+        const toggled = toggleTask(task);
+        const updatedTasks = updateTasks(this.state.tasks, toggled);
+        this.setState({
+            tasks: updatedTasks
+        });
     }
 
     handleSubmit = (e: any): void => {

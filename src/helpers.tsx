@@ -10,7 +10,7 @@ export const addTask = (taskName: string, tasks: Task[]) => {
     ];
 };
 
-export const toggleTask = (task: Task) => {
+export const toggleTask = (task: Task): Task => {
     return {
         ...task,
         done: !task.done
@@ -18,5 +18,22 @@ export const toggleTask = (task: Task) => {
 };
 
 export const updateTasks = (tasks: Task[], task: Task) => {
- return tasks;
+    const updatedIndex = tasks.findIndex(item => task.id === item.id);
+
+    return [
+        ...tasks.slice(0, updatedIndex),
+        task,
+        ...tasks.slice(updatedIndex + 1)
+    ];
+};
+
+export const loadTask = () => {
+    return fetch('http://localhost:8000/tasks')
+            .then((res: any) => {
+                return res.json();
+            });
+};
+
+export const findById = (id: number, tasks: Task[]) => {
+    return tasks.find((el: Task) => el.id === id);
 };
