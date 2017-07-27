@@ -2,14 +2,16 @@ import * as React from 'react';
 
 interface TaskFormProps {
     currentTask: string;
+    handleInput: (e: any) => void;
+    handleSubmit: (e: any) => void;
 }
 
 class TaskForm extends React.Component <TaskFormProps, {}> {
     render() {
-        const { currentTask } = this.props;
+        const { currentTask, handleInput, handleSubmit } = this.props;
         return (
-            <form>
-                <input value={currentTask} type="text"/>
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleInput} value={currentTask} type="text"/>
             </form>
         );
     }

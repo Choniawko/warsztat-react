@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Task } from './Task';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
+import { addTask } from '../helpers';
 
 interface TaskState {
     tasks: Task[];
@@ -30,14 +31,34 @@ class TaskContainer extends React.Component<{}, TaskState> {
                         done: false
                     }
             ],
-            currentTask: 'Default'
+            currentTask: ''
         };
+    }
+
+    handleInput = (e: any): void => {
+        this.setState({
+            currentTask: e.target.value
+        });
+    }
+
+    handleSubmit = (e: any): void => {
+        e.preventDefault();
+        this.setState({
+            tasks: addTask(this.state.currentTask, this.state.tasks)
+        });
+        this.setState({
+            currentTask: ''
+        });
     }
 
     render() {
         return (
         <div>
-            <TaskForm currentTask={this.state.currentTask} />
+            <TaskForm 
+                handleInput={this.handleInput} 
+                currentTask={this.state.currentTask} 
+                handleSubmit={this.handleSubmit}
+            />
             <TaskList tasks={this.state.tasks} />
         </div>
         );
