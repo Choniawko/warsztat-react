@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { Task } from './Task';
+import TaskList from '../components/TaskList';
+import TaskForm from '../components/TaskForm';
 
 interface TaskState {
     tasks: Task[];
+    currentTask: string;
 }
 
 class TaskContainer extends React.Component<{}, TaskState> {
@@ -26,21 +29,19 @@ class TaskContainer extends React.Component<{}, TaskState> {
                         name: 'Name #3',
                         done: false
                     }
-            ]
+            ],
+            currentTask: 'Default'
         };
     }
 
     render() {
         return (
         <div>
-            <input type="text"/>
-            <ul>
-                {this.state.tasks.map((task) => <li key={task.id}>{task.name}</li>)}
-            </ul>
+            <TaskForm currentTask={this.state.currentTask} />
+            <TaskList tasks={this.state.tasks} />
         </div>
         );
     }
-
 }
 
 export default TaskContainer;
