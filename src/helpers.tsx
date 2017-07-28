@@ -30,3 +30,5 @@ export const loadTask = () => {
 };
 
 export const findById = (id: number, tasks: Task[]) => tasks.find((el: Task) => el.id === id);
+
+export const removeTask = (id: number, tasks: Task[]) => tasks.filter(task => task.id !== id);

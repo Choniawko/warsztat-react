@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Task } from './Task';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import { addTask, loadTask, findById, toggleTask, updateTasks } from '../helpers';
+import { addTask, loadTask, findById, toggleTask, updateTasks, removeTask } from '../helpers';
 
 interface TaskState {
     tasks: Task[];
@@ -35,7 +35,7 @@ class TaskContainer extends React.Component<{}, TaskState> {
         const task: any = findById(id, this.state.tasks);
         const toggled = toggleTask(task);
         const updatedTasks = updateTasks(this.state.tasks, toggled);
-        
+
         this.setState({
             tasks: updatedTasks
         });
@@ -49,6 +49,13 @@ class TaskContainer extends React.Component<{}, TaskState> {
         });
     }
 
+    handleRemove = (id: number): void => {
+        const updatedTasks = removeTask(id, this.state.tasks);
+        this.setState({
+            tasks: updatedTasks
+        });
+    }
+
     render() {
         return (
         <div>
@@ -57,7 +64,11 @@ class TaskContainer extends React.Component<{}, TaskState> {
                 currentTask={this.state.currentTask} 
                 handleSubmit={this.handleSubmit}
             />
-            <TaskList onToggle={this.handleToggle} tasks={this.state.tasks} />
+            <TaskList
+                onToggle={this.handleToggle} 
+                tasks={this.state.tasks} 
+                handleRemove={this.handleRemove} 
+            />
         </div>
         );
     }
