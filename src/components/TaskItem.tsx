@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { Task } from '../containers/Task';
+import { style } from 'typestyle';
 
 interface TaskItemProps {
     task: Task;
     onToggle: (id: any) => void;
 }
+
+const textDecorator = (task: Task) => style({
+    textDecoration: task.done ? 'line-through' : 'none'
+});
+
 class TaskItem extends React.Component<TaskItemProps, {}> {
 
     render() {
@@ -13,7 +19,8 @@ class TaskItem extends React.Component<TaskItemProps, {}> {
          return (
             <div>
                 <input type="checkbox" onChange={onToggle} checked={task.done} />
-                {task.name}
+                <span className={textDecorator(task)}>{task.name}
+                </span>
             </div>);
     }
 }

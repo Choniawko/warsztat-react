@@ -10,12 +10,7 @@ export const addTask = (taskName: string, tasks: Task[]) => {
     ];
 };
 
-export const toggleTask = (task: Task): Task => {
-    return {
-        ...task,
-        done: !task.done
-    };
-};
+export const toggleTask = (task: Task): Task => ({...task, done: !task.done});
 
 export const updateTasks = (tasks: Task[], task: Task) => {
     const updatedIndex = tasks.findIndex(item => task.id === item.id);
@@ -34,6 +29,4 @@ export const loadTask = () => {
             });
 };
 
-export const findById = (id: number, tasks: Task[]) => {
-    return tasks.find((el: Task) => el.id === id);
-};
+export const findById = (id: number, tasks: Task[]) => tasks.find((el: Task) => el.id === id);

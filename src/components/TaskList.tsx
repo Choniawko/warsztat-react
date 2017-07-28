@@ -10,7 +10,6 @@ interface TaskListProps {
 
 class TaskList extends React.Component <TaskListProps, {}> {
     render() {
-
         const { tasks, onToggle } = this.props;
         
         return (
